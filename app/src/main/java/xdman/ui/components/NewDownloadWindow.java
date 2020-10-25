@@ -47,7 +47,7 @@ public class NewDownloadWindow extends JDialog implements ActionListener, Docume
 	private JTextField txtURL;
 	private XDMFileSelectionPanel filePane;
 	private JPopupMenu pop;
-	private CustomButton btnMore, btnDN, btnCN;
+	private CustomButton btnMore, btnDN, btnCN, btnQueue;
 	private HttpMetadata metadata;
 	// private String folder;
 	private String queueId;
@@ -112,6 +112,10 @@ public class NewDownloadWindow extends JDialog implements ActionListener, Docume
 					createPopup();
 				}
 				pop.show(btnMore, 0, btnMore.getHeight());
+			} else if (name.equals("NOW_QUEUE")) {
+				/// NeoUpdate: Queue into DefaultQueue
+				queueId = ""; /// Default queue
+				createDownload(false);
 			}
 			//
 			// else if (name.equals("BROWSE_FOLDER")) {
@@ -322,20 +326,26 @@ public class NewDownloadWindow extends JDialog implements ActionListener, Docume
 		add(panel);
 
 		btnMore = new CustomButton(StringResource.get("ND_MORE"));
+		btnQueue = new CustomButton(StringResource.get("ND_NOW_QUEUE"));
 		btnDN = new CustomButton(StringResource.get("ND_DOWNLOAD_NOW"));
 		btnCN = new CustomButton(StringResource.get("ND_CANCEL"));
 
-		btnMore.setBounds(getScaledInt(0), getScaledInt(1), getScaledInt(120), getScaledInt(55));
+		btnMore.setBounds(getScaledInt(0), getScaledInt(1), getScaledInt(90), getScaledInt(55));
 		btnMore.setName("BTN_MORE");
 		styleButton(btnMore);
 		panel.add(btnMore);
 
-		btnDN.setBounds(getScaledInt(121), getScaledInt(1), getScaledInt(160), getScaledInt(55));
+		btnQueue.setBounds(getScaledInt(91), getScaledInt(1), getScaledInt(90), getScaledInt(55));
+		btnQueue.setName("NOW_QUEUE");
+		styleButton(btnQueue);
+		panel.add(btnQueue);
+
+		btnDN.setBounds(getScaledInt(181), getScaledInt(1), getScaledInt(140), getScaledInt(55));
 		btnDN.setName("DOWNLOAD_NOW");
 		styleButton(btnDN);
 		panel.add(btnDN);
 
-		btnCN.setBounds(getScaledInt(282), getScaledInt(1), getScaledInt(120), getScaledInt(55));
+		btnCN.setBounds(getScaledInt(321), getScaledInt(1), getScaledInt(80), getScaledInt(55));
 		btnCN.setName("CLOSE");
 		styleButton(btnCN);
 		panel.add(btnCN);
